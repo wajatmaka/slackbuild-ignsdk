@@ -2,10 +2,10 @@
 IGN SDK API adalah kumpulan beberapa fungsi perintah yang di integrasikan pada sistem operasi IGN. 
 API ini mempunyai beberapa fasilitas untuk mengakses perintah pada sistem dan juga beberapa fasilitas yang lain.
 API ini diciptakan untuk mempermudah dalam pembuatan aplikasi pada IGN
-Kunjungi :
-http://igos-nusantara.or.id/
-http://ignsdk.web.id/
-https://github.com/anak10thn
+<br>Kunjungi :
+http://igos-nusantara.or.id/<br>
+http://ignsdk.web.id/<br>
+https://github.com/anak10thn<br><br>
 
 slackbuild by 
 Dwiyan Galuh W (wajatmaka)
