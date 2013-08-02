@@ -7,6 +7,8 @@ http://igos-nusantara.or.id/<br>
 http://ignsdk.web.id/<br>
 https://github.com/anak10thn<br><br>
 
+<br>
+>>>>>>> 3ebf7bbec62031ec1518cdfe58910cd9044480a6
 slackbuild by 
 Dwiyan Galuh W (wajatmaka)
 wajatmaka@gmail.com
