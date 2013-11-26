@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# Slackware build script for IGNSDK EXAMPLE PROJECT
+# Copyright 2013-2014 Dwiyan Galuh W <wajatmaka@gmail.com>
+# All rights reserved.
+
+#Author##
+#Eka Tresna Irawan/Ibnu Yahya (anak10thn@gmail.com)
+
+#SLACKBUILD##
+#Dwiyan Galuh W/wajatmaka (wajatmaka@gmail.com)
+
+
+PRGNAM=ign-sdk-example
+VERSION=${VERSION:-git}
+BUILD=${BUILD:-ign1}
+TAG=${TAG:-_wjt}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/ignsdk}
+PKG=$TMP/paket-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+
+rm -rf $PRGNAM
+wget -c https://github.com/anak10thn/ignsdk-example/archive/master.zip
+unzip master.zip -d $PRGNAM
+cd $PRGNAM
+
+VERSION="v.1.0"
+
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+
+mkdir -p $PKG/opt/ignsdk/
+mkdir -p $PKG/usr/share/applications 
+cp -rf ignsdk-example-master/* $PKG/opt/ignsdk/ 
+find . -name "*.desktop" -exec cp {} $PKG/usr/share/applications  \;
+
+
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
