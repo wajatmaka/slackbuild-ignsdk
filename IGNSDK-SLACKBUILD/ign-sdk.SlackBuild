@@ -53,14 +53,14 @@ rm -rf $PRGNAM
 git clone https://github.com/anak10thn/ignsdk-qt.git $PRGNAM
 cd $PRGNAM
 
-VERSION=""
+VERSION="ready"
 if [ -z $VERSION ] 
 then 
 	VERSION=`git tag | sort -n | tail -1`
 	git branch slack-$VERSION $VERSION
 	git checkout slack-$VERSION
 else
-	VERSION="v.1.1.2beta"
+	VERSION="v.1.1.4"
 	git branch slack-$VERSION
 	git checkout slack-$VERSION
 fi
@@ -73,14 +73,22 @@ find . \
  -exec chmod 644 {} \;
 
 klise(){
-if [ -d /opt/Qt5.1.1/5.1.1/gcc_64/ ]
+if [ -d /opt/Qt5.2.0/5.2.0/gcc_64/ ]
 then
-/opt/Qt5.1.1/5.1.1/gcc_64/bin/qmake
-elif [ -d /opt/Qt5.1.1/5.1.1/gcc/ ]
+/opt/Qt5.2.0/5.2.0/gcc_64/bin/qmake
+elif [ -d /opt/Qt5.2.0/5.2.0/gcc/ ]
 then
-/opt/Qt5.1.1/5.1.1/gcc/bin/qmake        
-else
+/opt/Qt5.2.0/5.2.0/gcc/bin/qmake        
+elif [ -d /usr/lib64/qt/ ]
+then
 qmake
+elif [ /usr/lib/qt/bin ]
+then
+qmake
+else
+echo "update your QT5 to version QT5.2.0"
+read -p " Press Enter to Exit " 
+exit 
 fi
 }
 pros=`cat /proc/cpuinfo | grep processor | wc -l`
@@ -136,14 +144,12 @@ cp ignsdk $PKG/usr/bin/
 cp -rf css $PKG/usr/share/ign-sdk/
 cp -rf js $PKG/usr/share/ign-sdk/
 cp -rf test/*  $PKG/usr/share/ign-sdk/test/
-cp -rf img/ $PKG/usr/share/ign-sdk/
 cp -rf LICENSE.BSD $PKG/usr/share/ign-sdk/
 chmod +x bin/*
 cp -rf bin/ignsdk-app-creator  $PKG/usr/bin/
 cp -rf bin/ignsdk-app-builder  $PKG/usr/bin/
 cp -rf bin/ignsdk-slack-creator  $PKG/usr/share/ign-sdk/bin/
 cp -rf bin/ignsdk-slack-builder $PKG/usr/share/ign-sdk/bin/
-cp -rf menu/ignsdk-kuma.desktop  $PKG/usr/share/applications/
 
 
 mkdir -p $PKG/install
