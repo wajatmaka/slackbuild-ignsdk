@@ -9,7 +9,7 @@
 
 #SLACKBUILD##
 #Dwiyan Galuh W/wajatmaka (wajatmaka@gmail.com)
-
+#script 1.1.4
 
 PRGNAM=ign-sdk
 VERSION=${VERSION:-git}
